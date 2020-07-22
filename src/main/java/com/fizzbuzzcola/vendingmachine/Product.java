@@ -15,13 +15,15 @@ public class Product {
     private BigDecimal price;
 //    @ManyToOne
     private VendingMachine vendingMachine;
+    private int numberInStock;
 
     protected Product() {}
 
-    public Product(String name, BigDecimal price, VendingMachine vendingMachine) {
+    public Product(String name, BigDecimal price, VendingMachine vendingMachine, int numberInStock) {
         this.name = name;
         this.price = price;
         this.vendingMachine = vendingMachine;
+        this.numberInStock = numberInStock;
     }
 
     public String getName() {
@@ -38,5 +40,13 @@ public class Product {
 
     public VendingMachine getVendingMachine() {
         return vendingMachine;
+    }
+
+    public int getNumberInStock() {
+        return numberInStock;
+    }
+
+    public void dispenseProduct() {
+        numberInStock--;
     }
 }

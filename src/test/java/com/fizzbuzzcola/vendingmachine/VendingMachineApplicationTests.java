@@ -43,7 +43,7 @@ class VendingMachineApplicationTests {
 
     @Test
     public void vendingMachineShouldHaveProducts() {
-        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), underTest);
+        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), underTest, 5);
         underTest.addProduct(testProduct);
         assertThat(underTest.getProducts()).containsExactlyInAnyOrder(testProduct);
     }
