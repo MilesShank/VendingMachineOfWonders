@@ -40,4 +40,11 @@ class VendingMachineApplicationTests {
         underTest.acceptCoin("apple");
         assertThat(underTest.getCoinReturn()).containsExactlyInAnyOrder("apple");
     }
+
+    @Test
+    public void vendingMachineShouldHaveProducts() {
+        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), underTest);
+        underTest.addProduct(testProduct);
+        assertThat(underTest.getProducts()).containsExactlyInAnyOrder(testProduct);
+    }
 }
