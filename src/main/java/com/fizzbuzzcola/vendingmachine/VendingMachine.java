@@ -11,6 +11,7 @@ public class VendingMachine {
     private BigDecimal dime;
     private BigDecimal nickel;
     private Collection<String> coinReturn;
+    private String machineDisplay;
 
     public VendingMachine(BigDecimal totalMoney) {
         this.totalMoney = totalMoney;
@@ -18,6 +19,7 @@ public class VendingMachine {
         this.dime = new BigDecimal(".10");
         this.nickel = new BigDecimal(".05");
         this.coinReturn = new ArrayList<>();
+        this.machineDisplay = "INSERT COIN";
     }
 
     public BigDecimal getTotalMoney() {
@@ -26,6 +28,10 @@ public class VendingMachine {
 
     public Collection<String> getCoinReturn() {
         return coinReturn;
+    }
+
+    public String getMachineDisplay() {
+        return machineDisplay;
     }
 
     public void acceptCoin(String insertedCoin) {
@@ -38,5 +44,6 @@ public class VendingMachine {
         } else {
             coinReturn.add(insertedCoin);
         }
+        machineDisplay = totalMoney.toString();
     }
 }
