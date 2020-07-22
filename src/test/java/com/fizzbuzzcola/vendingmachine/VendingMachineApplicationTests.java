@@ -10,4 +10,10 @@ class VendingMachineApplicationTests {
     void contextLoads() {
     }
 
+
+    @Test
+    public void vendingMachineShouldExist() {
+        VendingMachine underTest;
+
+    }
 }
