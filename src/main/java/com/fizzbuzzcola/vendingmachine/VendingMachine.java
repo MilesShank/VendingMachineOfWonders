@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.HashMap;
 
 
 @Service
@@ -17,7 +17,7 @@ public class VendingMachine {
     private BigDecimal nickel;
     private Collection<String> coinReturn;
     private String machineDisplay;
-    private Collection<Product> products;
+    private HashMap<String, Product> products = new HashMap<>();
 
     protected VendingMachine() {}
 
@@ -28,7 +28,6 @@ public class VendingMachine {
         this.nickel = new BigDecimal(".05");
         this.coinReturn = new ArrayList<>();
         this.machineDisplay = "INSERT COIN";
-        this.products = new ArrayList<>();
     }
 
     public BigDecimal getTotalMoney() {
@@ -43,11 +42,10 @@ public class VendingMachine {
         return machineDisplay;
     }
 
-
     public Collection<Product> getProducts() {
-        return products;
+        return products.values();
     }
-
+    
     public void acceptCoin(String insertedCoin) {
         if (insertedCoin.equalsIgnoreCase("quarter")) {
             totalMoney = totalMoney.add(quarter);
