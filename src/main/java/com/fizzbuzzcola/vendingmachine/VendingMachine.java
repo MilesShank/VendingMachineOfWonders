@@ -45,7 +45,7 @@ public class VendingMachine {
     public Collection<Product> getProducts() {
         return products.values();
     }
-    
+
     public void acceptCoin(String insertedCoin) {
         if (insertedCoin.equalsIgnoreCase("quarter")) {
             totalMoney = totalMoney.add(quarter);
@@ -60,9 +60,20 @@ public class VendingMachine {
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+
+        products.put(product.getName(),product);
     }
 
-    public void selectProduct(String chips) {
+    public Product selectProduct(String productToSelect) {
+        return products.get(productToSelect);
+    }
+
+    public void dispenseProduct(String selectedProduct) {
+        Product ourSelectedProduct = products.get(selectedProduct);
+        if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
+            ourSelectedProduct.dispenseProduct();
+            totalMoney.subtract(ourSelectedProduct.getPrice());
+            machineDisplay = "THANK YOU";
+        }
     }
 }

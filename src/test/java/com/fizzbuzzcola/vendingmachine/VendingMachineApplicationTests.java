@@ -53,7 +53,7 @@ class VendingMachineApplicationTests {
 
     @Test
     public void vendingMachineShouldDispenseProduct(){
-        underTest.selectProduct("Chips");
-
+        underTest.dispenseProduct("Chips");
     }
+
 }
