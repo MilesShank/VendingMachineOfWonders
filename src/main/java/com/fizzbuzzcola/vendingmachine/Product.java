@@ -1,19 +1,16 @@
 package com.fizzbuzzcola.vendingmachine;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.springframework.stereotype.Service;
+
+
 import java.math.BigDecimal;
 
-//@Entity
+
 public class Product {
-//    @Id
-//    @GeneratedValue
-//    private long id;
+
     private String name;
     private BigDecimal price;
-//    @ManyToOne
+
     private VendingMachine vendingMachine;
     private int numberInStock;
 
@@ -34,9 +31,7 @@ public class Product {
         return price;
     }
 
-//    public long getId() {
-//        return id;
-//    }
+
 
     public VendingMachine getVendingMachine() {
         return vendingMachine;

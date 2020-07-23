@@ -1,26 +1,22 @@
 package com.fizzbuzzcola.vendingmachine;
 
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-//@Entity
+
+@Service
 public class VendingMachine {
-//    @Id
-//    @GeneratedValue
-//    private long id;
+
     private BigDecimal totalMoney;
     private BigDecimal quarter;
     private BigDecimal dime;
     private BigDecimal nickel;
     private Collection<String> coinReturn;
     private String machineDisplay;
-//    @OneToMany(mappedBy = "vendingMachine")
     private Collection<Product> products;
 
     protected VendingMachine() {}
@@ -47,9 +43,6 @@ public class VendingMachine {
         return machineDisplay;
     }
 
-//    public long getId() {
-//        return id;
-//    }
 
     public Collection<Product> getProducts() {
         return products;
