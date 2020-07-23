@@ -64,4 +64,7 @@ public class VendingMachine {
     public void addProduct(Product product) {
         products.add(product);
     }
+
+    public void selectProduct(String chips) {
+    }
 }
