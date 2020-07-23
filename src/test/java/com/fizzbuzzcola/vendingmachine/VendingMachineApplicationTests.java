@@ -13,10 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class VendingMachineApplicationTests {
     private VendingMachine underTest;
-
+    private Product testChips;
     @BeforeEach
     void setUp() {
         underTest = new VendingMachine(new BigDecimal("10.10"));
+        testChips = new Product("Chips", BigDecimal.valueOf(1.25), 5);
+        underTest.addProduct(testChips);
+
     }
 
     @Test
@@ -43,8 +46,14 @@ class VendingMachineApplicationTests {
 
     @Test
     public void vendingMachineShouldHaveProducts() {
-        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), underTest, 5);
+        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), 5);
         underTest.addProduct(testProduct);
         assertThat(underTest.getProducts()).containsExactlyInAnyOrder(testProduct);
     }
+
+    @Test
+    public void vendingMachineShouldDispenseProduct(){
+        underTest.dispenseProduct("Chips");
+    }
+
 }
