@@ -48,12 +48,15 @@ class VendingMachineApplicationTests {
     public void vendingMachineShouldHaveProducts() {
         Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), 5);
         underTest.addProduct(testProduct);
-        assertThat(underTest.getProducts()).containsExactlyInAnyOrder(testProduct);
+        assertThat(underTest.getProducts()).contains(testProduct);
     }
 
     @Test
     public void vendingMachineShouldDispenseProduct(){
         underTest.dispenseProduct("Chips");
+        assertEquals(4, testChips.getNumberInStock());
+        assertEquals(BigDecimal.valueOf(8.85), underTest.getTotalMoney());
+        assertEquals("THANK YOU", underTest.getMachineDisplay());
     }
 
 }

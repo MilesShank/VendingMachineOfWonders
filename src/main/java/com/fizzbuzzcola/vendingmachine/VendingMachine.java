@@ -72,7 +72,7 @@ public class VendingMachine {
         Product ourSelectedProduct = products.get(selectedProduct);
         if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
             ourSelectedProduct.dispenseProduct();
-            totalMoney.subtract(ourSelectedProduct.getPrice());
+            totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
         }
     }
