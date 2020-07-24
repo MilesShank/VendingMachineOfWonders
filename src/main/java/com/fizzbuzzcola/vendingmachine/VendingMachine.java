@@ -32,6 +32,9 @@ public class VendingMachine {
         this.coins.put("Quarter", 20);
         this.coins.put("Dime", 20);
         this.coins.put("Nickel", 20);
+        this.products.put("Chips", new Product("Chips", BigDecimal.valueOf(.50),5));
+        this.products.put("Cola", new Product("Cola",BigDecimal.valueOf(1.00),5));
+        this.products.put("Candy",new Product("Candy", BigDecimal.valueOf(.65),5));
     }
 
     public BigDecimal getTotalMoney() {
@@ -43,6 +46,10 @@ public class VendingMachine {
     }
 
     public String getMachineDisplay() {
+        if(machineDisplay == "THANK YOU"){
+            machineDisplay = "INSERT COIN";
+            return "THANK YOU";
+        }
         return machineDisplay;
     }
 
@@ -78,11 +85,14 @@ public class VendingMachine {
     public void dispenseProduct(String selectedProduct) {
         Product ourSelectedProduct = products.get(selectedProduct);
         if (ourSelectedProduct.getNumberInStock() <= 0){
-            machineDisplay = "Product Out Of Stock";
-        } else if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
+            machineDisplay = "OUT OF STOCK";
+        } else if(!checkForExactChange(selectedProduct) ){
+            machineDisplay = "Exact Change Only";
+        }else if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
+            dispenseCoins();
         } else {
             machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
         }
@@ -104,6 +114,7 @@ public class VendingMachine {
                 coinReturn.add("Nickel");
             }
         }
+        machineDisplay = "INSERT COIN";
     }
 
     public int getCoinCount(String coin) {
@@ -132,5 +143,9 @@ public class VendingMachine {
             }
         }
         return true;
+    }
+
+    public void emptyCoinReturn() {
+        
     }
 }
