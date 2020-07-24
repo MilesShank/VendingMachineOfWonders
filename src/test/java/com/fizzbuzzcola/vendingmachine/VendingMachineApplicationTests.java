@@ -36,6 +36,8 @@ class VendingMachineApplicationTests {
     public void vendingMachineShouldAcceptCoins() {
         underTest.acceptCoin("quarter");
         assertEquals(BigDecimal.valueOf(10.35), underTest.getTotalMoney());
+        assertEquals(21, underTest.getCoinCount("Quarter"));
+
     }
 
     @Test

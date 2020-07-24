@@ -53,10 +53,13 @@ public class VendingMachine {
     public void acceptCoin(String insertedCoin) {
         if (insertedCoin.equalsIgnoreCase("quarter")) {
             totalMoney = totalMoney.add(quarter);
+            coins.replace("Quarter", (coins.get("Quarter") + 1));
         } else if (insertedCoin.equalsIgnoreCase("dime")) {
             totalMoney = totalMoney.add(dime);
+            coins.replace("Dime", (coins.get("Dime") + 1));
         } else if (insertedCoin.equalsIgnoreCase("nickel")){
             totalMoney = totalMoney.add(nickel);
+            coins.replace("Nickel", (coins.get("Nickel") + 1));
         } else {
             coinReturn.add(insertedCoin);
         }
