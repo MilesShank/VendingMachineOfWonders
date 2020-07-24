@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class VendingMachineApplicationTests {
@@ -100,7 +99,10 @@ class VendingMachineApplicationTests {
 
     @Test
     public void vendingMachineShouldCheckIfExactChangeIsRequired(){
-        assertTrue(underTest.checkForExactChange("Chips"));
+        Product testProduct = new Product("Antiviral Cola", BigDecimal.valueOf(9.00), 5);
+        underTest.addProduct(testProduct);
+        assertTrue(underTest.checkForExactChange("Antiviral Cola"));
+        assertFalse(underTest.checkForExactChange("Chips"));
     }
 
 }

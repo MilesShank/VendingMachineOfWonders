@@ -105,6 +105,26 @@ public class VendingMachine {
     }
 
     public boolean checkForExactChange(String productName) {
+        Product productToCheck = products.get(productName);
+        BigDecimal checkTotalMoney = totalMoney.subtract(productToCheck.getPrice());
+        int quarters = coins.get("Quarter");
+        int dimes = coins.get("Dime");
+        int nickels = coins.get("Nickel");
+        while (checkTotalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
+            if (checkTotalMoney.compareTo(quarter) >= 0) {
+                quarters--;
+                checkTotalMoney = checkTotalMoney.subtract(quarter);
+            } else if (checkTotalMoney.compareTo(dime) >= 0 ) {
+                dimes--;
+                checkTotalMoney = checkTotalMoney.subtract(dime);
+            } else if (checkTotalMoney.compareTo(nickel) >= 0) {
+                nickels--;
+                checkTotalMoney = checkTotalMoney.subtract(nickel);
+            }
+            if (quarters <= 0 || dimes <= 0 || nickels <= 0) {
+                return false;
+            }
+        }
         return true;
     }
 }
