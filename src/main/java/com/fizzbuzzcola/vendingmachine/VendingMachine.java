@@ -78,4 +78,19 @@ public class VendingMachine {
             machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
         }
     }
+
+    public void dispenseCoins() {
+        while (totalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
+            if (totalMoney.compareTo(quarter) >= 0) {
+                totalMoney = totalMoney.subtract(quarter);
+                coinReturn.add("Quarter");
+            } else if (totalMoney.compareTo(dime) >= 0 ) {
+                totalMoney = totalMoney.subtract(dime);
+                coinReturn.add("Dime");
+            } else if (totalMoney.compareTo(nickel) >= 0) {
+                totalMoney = totalMoney.subtract(nickel);
+                coinReturn.add("Nickel");
+            }
+        }
+    }
 }

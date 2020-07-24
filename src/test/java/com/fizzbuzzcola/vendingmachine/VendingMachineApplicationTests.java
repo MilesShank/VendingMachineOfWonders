@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,6 +68,18 @@ class VendingMachineApplicationTests {
         assertEquals(5, testChips.getNumberInStock());
         assertEquals(BigDecimal.valueOf(0), testVendingMachine.getTotalMoney());
         assertEquals("Please enter $1.25", testVendingMachine.getMachineDisplay());
+    }
+
+    @Test
+    public void vendingMachineShouldReturnCoins(){
+        VendingMachine testVendingMachine = new VendingMachine(BigDecimal.valueOf(.65));
+        testVendingMachine.dispenseCoins();
+        ArrayList<String> expectedReturn = new ArrayList<>();
+        expectedReturn.add("Quarter");
+        expectedReturn.add("Quarter");
+        expectedReturn.add("Dime");
+        expectedReturn.add("Nickel");
+        assertEquals(expectedReturn, testVendingMachine.getCoinReturn());
     }
 
 }
