@@ -6,10 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class VendingMachineApplicationTests {
@@ -79,7 +79,28 @@ class VendingMachineApplicationTests {
         expectedReturn.add("Quarter");
         expectedReturn.add("Dime");
         expectedReturn.add("Nickel");
+
         assertEquals(expectedReturn, testVendingMachine.getCoinReturn());
+    }
+
+    @Test
+    public void vendingMachineShouldUpdateDisplayWhenOutOfStockProductIsSelected() {
+        Product testProduct = new Product("Cola", BigDecimal.valueOf(2.00), 0);
+        underTest.addProduct(testProduct);
+        underTest.dispenseProduct("Cola");
+        assertEquals("Product Out Of Stock", underTest.getMachineDisplay());
+    }
+
+    @Test
+    public void vendingMachineShouldHaveCollectionOfCoins(){
+        assertEquals(20, underTest.getCoinCount("Quarter"));
+        assertEquals(20, underTest.getCoinCount("Dime"));
+        assertEquals(20, underTest.getCoinCount("Nickel"));
+    }
+
+    @Test
+    public void vendingMachineShouldCheckIfExactChangeIsRequired(){
+        assertTrue(underTest.checkForExactChange("Chips"));
     }
 
 }

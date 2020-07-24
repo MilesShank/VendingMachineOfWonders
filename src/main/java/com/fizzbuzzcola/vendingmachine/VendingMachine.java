@@ -18,6 +18,7 @@ public class VendingMachine {
     private Collection<String> coinReturn;
     private String machineDisplay;
     private HashMap<String, Product> products = new HashMap<>();
+    private HashMap<String, Integer> coins = new HashMap<>();
 
     protected VendingMachine() {}
 
@@ -28,6 +29,9 @@ public class VendingMachine {
         this.nickel = new BigDecimal(".05");
         this.coinReturn = new ArrayList<>();
         this.machineDisplay = "INSERT COIN";
+        this.coins.put("Quarter", 20);
+        this.coins.put("Dime", 20);
+        this.coins.put("Nickel", 20);
     }
 
     public BigDecimal getTotalMoney() {
@@ -70,7 +74,9 @@ public class VendingMachine {
 
     public void dispenseProduct(String selectedProduct) {
         Product ourSelectedProduct = products.get(selectedProduct);
-        if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
+        if (ourSelectedProduct.getNumberInStock() <= 0){
+            machineDisplay = "Product Out Of Stock";
+        } else if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
@@ -92,5 +98,13 @@ public class VendingMachine {
                 coinReturn.add("Nickel");
             }
         }
+    }
+
+    public int getCoinCount(String coin) {
+        return coins.get(coin);
+    }
+
+    public boolean checkForExactChange(String productName) {
+        return true;
     }
 }
