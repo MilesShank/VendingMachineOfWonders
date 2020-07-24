@@ -75,6 +75,9 @@ class VendingMachineApplicationTests {
     public void vendingMachineShouldReturnCoins(){
         VendingMachine testVendingMachine = new VendingMachine(BigDecimal.valueOf(.65));
         testVendingMachine.dispenseCoins();
+        assertEquals(18,testVendingMachine.getCoinCount("Quarter"));
+        assertEquals(19,testVendingMachine.getCoinCount("Dime"));
+        assertEquals(19,testVendingMachine.getCoinCount("Nickel"));
         ArrayList<String> expectedReturn = new ArrayList<>();
         expectedReturn.add("Quarter");
         expectedReturn.add("Quarter");

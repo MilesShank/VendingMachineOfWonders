@@ -92,12 +92,15 @@ public class VendingMachine {
         while (totalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
             if (totalMoney.compareTo(quarter) >= 0) {
                 totalMoney = totalMoney.subtract(quarter);
+                coins.replace("Quarter", (coins.get("Quarter") - 1));
                 coinReturn.add("Quarter");
             } else if (totalMoney.compareTo(dime) >= 0 ) {
                 totalMoney = totalMoney.subtract(dime);
+                coins.replace("Dime", (coins.get("Dime") - 1));
                 coinReturn.add("Dime");
             } else if (totalMoney.compareTo(nickel) >= 0) {
                 totalMoney = totalMoney.subtract(nickel);
+                coins.replace("Nickel", (coins.get("Nickel") - 1));
                 coinReturn.add("Nickel");
             }
         }
