@@ -146,6 +146,6 @@ public class VendingMachine {
     }
 
     public void emptyCoinReturn() {
-        
+        coinReturn.clear();
     }
 }
