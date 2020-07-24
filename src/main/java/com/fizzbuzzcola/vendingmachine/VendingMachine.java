@@ -74,6 +74,8 @@ public class VendingMachine {
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
+        } else {
+            machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
         }
     }
 }

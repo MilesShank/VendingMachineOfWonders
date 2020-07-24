@@ -59,4 +59,14 @@ class VendingMachineApplicationTests {
         assertEquals("THANK YOU", underTest.getMachineDisplay());
     }
 
+    @Test
+    public void vendingMachineShouldNotDispenseProductIfNotEnoughMoneyHasBeenAdded(){
+        VendingMachine testVendingMachine = new VendingMachine(BigDecimal.valueOf(0));
+        testVendingMachine.addProduct(testChips);
+        testVendingMachine.dispenseProduct("Chips");
+        assertEquals(5, testChips.getNumberInStock());
+        assertEquals(BigDecimal.valueOf(0), testVendingMachine.getTotalMoney());
+        assertEquals("Please enter $1.25", testVendingMachine.getMachineDisplay());
+    }
+
 }
