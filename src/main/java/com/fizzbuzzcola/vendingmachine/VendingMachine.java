@@ -18,6 +18,7 @@ public class VendingMachine {
     private Collection<String> coinReturn;
     private String machineDisplay;
     private HashMap<String, Product> products = new HashMap<>();
+    private HashMap<String, Integer> coins = new HashMap<>();
 
     protected VendingMachine() {}
 
@@ -28,6 +29,9 @@ public class VendingMachine {
         this.nickel = new BigDecimal(".05");
         this.coinReturn = new ArrayList<>();
         this.machineDisplay = "INSERT COIN";
+        this.coins.put("Quarter", 20);
+        this.coins.put("Dime", 20);
+        this.coins.put("Nickel", 20);
     }
 
     public BigDecimal getTotalMoney() {
@@ -49,10 +53,13 @@ public class VendingMachine {
     public void acceptCoin(String insertedCoin) {
         if (insertedCoin.equalsIgnoreCase("quarter")) {
             totalMoney = totalMoney.add(quarter);
+            coins.replace("Quarter", (coins.get("Quarter") + 1));
         } else if (insertedCoin.equalsIgnoreCase("dime")) {
             totalMoney = totalMoney.add(dime);
+            coins.replace("Dime", (coins.get("Dime") + 1));
         } else if (insertedCoin.equalsIgnoreCase("nickel")){
             totalMoney = totalMoney.add(nickel);
+            coins.replace("Nickel", (coins.get("Nickel") + 1));
         } else {
             coinReturn.add(insertedCoin);
         }
@@ -70,10 +77,57 @@ public class VendingMachine {
 
     public void dispenseProduct(String selectedProduct) {
         Product ourSelectedProduct = products.get(selectedProduct);
-        if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
+        if (ourSelectedProduct.getNumberInStock() <= 0){
+            machineDisplay = "Product Out Of Stock";
+        } else if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
             ourSelectedProduct.dispenseProduct();
-            totalMoney.subtract(ourSelectedProduct.getPrice());
+            totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
+        } else {
+            machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
         }
+    }
+
+    public void dispenseCoins() {
+        while (totalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
+            if (totalMoney.compareTo(quarter) >= 0) {
+                totalMoney = totalMoney.subtract(quarter);
+                coinReturn.add("Quarter");
+            } else if (totalMoney.compareTo(dime) >= 0 ) {
+                totalMoney = totalMoney.subtract(dime);
+                coinReturn.add("Dime");
+            } else if (totalMoney.compareTo(nickel) >= 0) {
+                totalMoney = totalMoney.subtract(nickel);
+                coinReturn.add("Nickel");
+            }
+        }
+    }
+
+    public int getCoinCount(String coin) {
+        return coins.get(coin);
+    }
+
+    public boolean checkForExactChange(String productName) {
+        Product productToCheck = products.get(productName);
+        BigDecimal checkTotalMoney = totalMoney.subtract(productToCheck.getPrice());
+        int quarters = coins.get("Quarter");
+        int dimes = coins.get("Dime");
+        int nickels = coins.get("Nickel");
+        while (checkTotalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
+            if (checkTotalMoney.compareTo(quarter) >= 0) {
+                quarters--;
+                checkTotalMoney = checkTotalMoney.subtract(quarter);
+            } else if (checkTotalMoney.compareTo(dime) >= 0 ) {
+                dimes--;
+                checkTotalMoney = checkTotalMoney.subtract(dime);
+            } else if (checkTotalMoney.compareTo(nickel) >= 0) {
+                nickels--;
+                checkTotalMoney = checkTotalMoney.subtract(nickel);
+            }
+            if (quarters <= 0 || dimes <= 0 || nickels <= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
