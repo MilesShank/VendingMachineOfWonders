@@ -23,4 +23,9 @@ public class VendingMachineController {
 
     @GetMapping("/api/vend/acceptCoin/{coin}")
     public void machineAcceptsCoin(@PathVariable String coin){vendingMachine.acceptCoin(coin);}
+
+    @GetMapping("/api/vend/dispenseproduct/{productName}")
+    public void machineDispensesProduct(@PathVariable String productName){vendingMachine.dispenseProduct(productName);}
+
+    @GetMapping("/api/vend/")
 }
