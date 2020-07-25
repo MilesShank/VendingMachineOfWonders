@@ -12,8 +12,8 @@ public class ProductTest {
     private Product underTest;
 
     @BeforeEach
-    void setUp(){
-        underTest = new Product("name", BigDecimal.valueOf(1.00),  5);
+    void setUp() {
+        underTest = new Product("name", BigDecimal.valueOf(1.00), 5);
     }
 
     @Test

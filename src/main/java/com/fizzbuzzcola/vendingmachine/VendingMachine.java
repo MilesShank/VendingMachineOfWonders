@@ -20,7 +20,8 @@ public class VendingMachine {
     private HashMap<String, Product> products = new HashMap<>();
     private HashMap<String, Integer> coins = new HashMap<>();
 
-    protected VendingMachine() {}
+    protected VendingMachine() {
+    }
 
     public VendingMachine(BigDecimal totalMoney) {
         this.totalMoney = totalMoney;
@@ -32,9 +33,9 @@ public class VendingMachine {
         this.coins.put("Quarter", 20);
         this.coins.put("Dime", 20);
         this.coins.put("Nickel", 20);
-        this.products.put("Chips", new Product("Chips", BigDecimal.valueOf(.50),5));
-        this.products.put("Cola", new Product("Cola",BigDecimal.valueOf(1.00),5));
-        this.products.put("Candy",new Product("Candy", BigDecimal.valueOf(.65),5));
+        this.products.put("Chips", new Product("Chips", BigDecimal.valueOf(.50), 5));
+        this.products.put("Cola", new Product("Cola", BigDecimal.valueOf(1.00), 5));
+        this.products.put("Candy", new Product("Candy", BigDecimal.valueOf(.65), 5));
     }
 
     public BigDecimal getTotalMoney() {
@@ -46,7 +47,7 @@ public class VendingMachine {
     }
 
     public String getMachineDisplay() {
-        if(machineDisplay == "THANK YOU"){
+        if (machineDisplay == "THANK YOU") {
             machineDisplay = "INSERT COIN";
             return "THANK YOU";
         }
@@ -64,7 +65,7 @@ public class VendingMachine {
         } else if (insertedCoin.equalsIgnoreCase("dime")) {
             totalMoney = totalMoney.add(dime);
             coins.replace("Dime", (coins.get("Dime") + 1));
-        } else if (insertedCoin.equalsIgnoreCase("nickel")){
+        } else if (insertedCoin.equalsIgnoreCase("nickel")) {
             totalMoney = totalMoney.add(nickel);
             coins.replace("Nickel", (coins.get("Nickel") + 1));
         } else {
@@ -75,7 +76,7 @@ public class VendingMachine {
 
     public void addProduct(Product product) {
 
-        products.put(product.getName(),product);
+        products.put(product.getName(), product);
     }
 
     public Product selectProduct(String productToSelect) {
@@ -84,17 +85,18 @@ public class VendingMachine {
 
     public void dispenseProduct(String selectedProduct) {
         Product ourSelectedProduct = products.get(selectedProduct);
-        if (ourSelectedProduct.getNumberInStock() <= 0){
+        if (ourSelectedProduct.getNumberInStock() <= 0) {
             machineDisplay = "OUT OF STOCK";
-        } else if(!checkForExactChange(selectedProduct) ){
+        } else if (ourSelectedProduct.getPrice().compareTo(totalMoney) == 1) {
+            machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
+        } else if (!checkForExactChange(selectedProduct)) {
             machineDisplay = "Exact Change Only";
-        }else if(ourSelectedProduct.getPrice().compareTo(totalMoney)<=0){
+        } else {
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
+            System.out.println(totalMoney);
             dispenseCoins();
-        } else {
-            machineDisplay = "Please enter $" + (ourSelectedProduct.getPrice().subtract(totalMoney));
         }
     }
 
@@ -104,7 +106,7 @@ public class VendingMachine {
                 totalMoney = totalMoney.subtract(quarter);
                 coins.replace("Quarter", (coins.get("Quarter") - 1));
                 coinReturn.add("Quarter");
-            } else if (totalMoney.compareTo(dime) >= 0 ) {
+            } else if (totalMoney.compareTo(dime) >= 0) {
                 totalMoney = totalMoney.subtract(dime);
                 coins.replace("Dime", (coins.get("Dime") - 1));
                 coinReturn.add("Dime");
@@ -131,7 +133,7 @@ public class VendingMachine {
             if (checkTotalMoney.compareTo(quarter) >= 0) {
                 quarters--;
                 checkTotalMoney = checkTotalMoney.subtract(quarter);
-            } else if (checkTotalMoney.compareTo(dime) >= 0 ) {
+            } else if (checkTotalMoney.compareTo(dime) >= 0) {
                 dimes--;
                 checkTotalMoney = checkTotalMoney.subtract(dime);
             } else if (checkTotalMoney.compareTo(nickel) >= 0) {

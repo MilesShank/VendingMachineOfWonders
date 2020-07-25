@@ -1,8 +1,5 @@
 package com.fizzbuzzcola.vendingmachine;
 
-import org.springframework.stereotype.Service;
-
-
 import java.math.BigDecimal;
 
 
@@ -12,7 +9,8 @@ public class Product {
     private BigDecimal price;
     private int numberInStock;
 
-    protected Product() {}
+    protected Product() {
+    }
 
     public Product(String name, BigDecimal price, int numberInStock) {
         this.name = name;
