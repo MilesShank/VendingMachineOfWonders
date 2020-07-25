@@ -17,7 +17,7 @@ class VendingMachineApplicationTests {
     @BeforeEach
     void setUp() {
         underTest = new VendingMachine(new BigDecimal("10.10"));
-        testChips = new Product("Chips", BigDecimal.valueOf(1.25), 5);
+        testChips = new Product("Chips2", BigDecimal.valueOf(1.25), 5);
         underTest.addProduct(testChips);
 
     }
@@ -48,14 +48,14 @@ class VendingMachineApplicationTests {
 
     @Test
     public void vendingMachineShouldHaveProducts() {
-        Product testProduct = new Product("Cola", BigDecimal.valueOf(1.00), 5);
+        Product testProduct = new Product("Cola2", BigDecimal.valueOf(1.00), 5);
         underTest.addProduct(testProduct);
         assertThat(underTest.getProducts()).contains(testProduct);
     }
 
     @Test
     public void vendingMachineShouldDispenseProduct(){
-        underTest.dispenseProduct("Chips");
+        underTest.dispenseProduct("Chips2");
         assertEquals(4, testChips.getNumberInStock());
         assertEquals(BigDecimal.valueOf(8.85), underTest.getTotalMoney());
         assertEquals("THANK YOU", underTest.getMachineDisplay());
@@ -65,7 +65,7 @@ class VendingMachineApplicationTests {
     public void vendingMachineShouldNotDispenseProductIfNotEnoughMoneyHasBeenAdded(){
         VendingMachine testVendingMachine = new VendingMachine(BigDecimal.valueOf(0));
         testVendingMachine.addProduct(testChips);
-        testVendingMachine.dispenseProduct("Chips");
+        testVendingMachine.dispenseProduct("Chips2");
         assertEquals(5, testChips.getNumberInStock());
         assertEquals(BigDecimal.valueOf(0), testVendingMachine.getTotalMoney());
         assertEquals("Please enter $1.25", testVendingMachine.getMachineDisplay());
@@ -75,20 +75,22 @@ class VendingMachineApplicationTests {
     public void vendingMachineShouldReturnCoins(){
         VendingMachine testVendingMachine = new VendingMachine(BigDecimal.valueOf(.65));
         testVendingMachine.dispenseCoins();
+        assertEquals(18,testVendingMachine.getCoinCount("Quarter"));
+        assertEquals(19,testVendingMachine.getCoinCount("Dime"));
+        assertEquals(19,testVendingMachine.getCoinCount("Nickel"));
         ArrayList<String> expectedReturn = new ArrayList<>();
         expectedReturn.add("Quarter");
         expectedReturn.add("Quarter");
         expectedReturn.add("Dime");
         expectedReturn.add("Nickel");
-
         assertEquals(expectedReturn, testVendingMachine.getCoinReturn());
     }
 
     @Test
     public void vendingMachineShouldUpdateDisplayWhenOutOfStockProductIsSelected() {
-        Product testProduct = new Product("Cola", BigDecimal.valueOf(2.00), 0);
+        Product testProduct = new Product("Cola2", BigDecimal.valueOf(2.00), 0);
         underTest.addProduct(testProduct);
-        underTest.dispenseProduct("Cola");
+        underTest.dispenseProduct("Cola2");
         assertEquals("Product Out Of Stock", underTest.getMachineDisplay());
     }
 
@@ -104,7 +106,12 @@ class VendingMachineApplicationTests {
         Product testProduct = new Product("Antiviral Cola", BigDecimal.valueOf(9.00), 5);
         underTest.addProduct(testProduct);
         assertTrue(underTest.checkForExactChange("Antiviral Cola"));
-        assertFalse(underTest.checkForExactChange("Chips"));
+        assertFalse(underTest.checkForExactChange("Chips2"));
     }
 
+    @Test
+    public void shouldBeAbleToEmptyCoinReturn(){
+        underTest.dispenseProduct("Chips");
+        underTest.emptyCoinReturn();
+    }
 }
