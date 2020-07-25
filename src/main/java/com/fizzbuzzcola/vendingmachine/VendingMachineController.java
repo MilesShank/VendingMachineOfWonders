@@ -21,11 +21,22 @@ public class VendingMachineController {
     @GetMapping("/api/vend/products")
     public Collection<Product> getMachineProducts(){return vendingMachine.getProducts();}
 
-    @GetMapping("/api/vend/acceptCoin/{coin}")
+    @GetMapping("/api/vend/acceptcoin/{coin}")
     public void machineAcceptsCoin(@PathVariable String coin){vendingMachine.acceptCoin(coin);}
 
     @GetMapping("/api/vend/dispenseproduct/{productName}")
-    public void machineDispensesProduct(@PathVariable String productName){vendingMachine.dispenseProduct(productName);}
+    public void machineDispensesProduct(@PathVariable String productName){vendingMachine.dispenseProduct(productName); }
 
-    @GetMapping("/api/vend/")
+    @GetMapping("/api/vend/returncoins")
+    public void machineReturnsCoins(){vendingMachine.dispenseCoins();}
+
+    @GetMapping("/api/vend/getcoinreturn")
+    public Collection<String> viewMachineCoinReturn(){return vendingMachine.getCoinReturn();}
+
+    @GetMapping("/api/vend/emptycoinreturn")
+    public void emptyMachineCoinReturn(){vendingMachine.emptyCoinReturn();}
+
+    @GetMapping("/api/vend/products/{productName}")
+    public Product viewMachineProduct(@PathVariable String productName){return vendingMachine.selectProduct(productName);}
+
 }

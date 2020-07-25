@@ -86,7 +86,6 @@ public class VendingMachine {
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
-            System.out.println(totalMoney);
             dispenseCoins();
         }
     }
