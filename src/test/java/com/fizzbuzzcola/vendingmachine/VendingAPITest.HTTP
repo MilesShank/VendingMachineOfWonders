@@ -1,0 +1,6 @@
+GET http://localhost:8080/api/vend/machinedisplay
+###
+GET http://localhost:8080/api/vend/products
+###
+GET http://localhost:8080/api/vend/acceptCoin/Quarter
+
