@@ -1,0 +1,15 @@
+GET http://localhost:8080/api/vend/machinedisplay
+###
+GET http://localhost:8080/api/vend/products
+###
+GET http://localhost:8080/api/vend/acceptcoin/Quarter
+###
+GET http://localhost:8080/api/vend/dispenseproduct/Antiviral%20Cola
+###
+GET http://localhost:8080/api/vend/products/Antiviral%20Cola
+###
+GET http://localhost:8080/api/vend/returncoins
+###
+GET http://localhost:8080/api/vend/getcoinreturn
+###
+GET http://localhost:8080/api/vend/emptycoinreturn

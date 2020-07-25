@@ -114,7 +114,7 @@ class VendingMachineApplicationTests {
 
     @Test
     public void shouldBeAbleToEmptyCoinReturn() {
-        underTest.dispenseProduct("Chips");
+        underTest.dispenseProduct("Chips2");
         underTest.emptyCoinReturn();
     }
 }

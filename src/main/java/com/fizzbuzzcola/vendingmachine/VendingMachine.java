@@ -20,7 +20,21 @@ public class VendingMachine {
     private HashMap<String, Product> products = new HashMap<>();
     private HashMap<String, Integer> coins = new HashMap<>();
 
-    protected VendingMachine() {
+    public VendingMachine() {
+        this.totalMoney = BigDecimal.valueOf(0);
+        this.quarter = new BigDecimal(".25");
+        this.dime = new BigDecimal(".10");
+        this.nickel = new BigDecimal(".05");
+        this.coinReturn = new ArrayList<>();
+        this.machineDisplay = "INSERT COIN";
+        this.coins.put("Quarter", 20);
+        this.coins.put("Dime", 20);
+        this.coins.put("Nickel", 20);
+        this.products.put("Antiviral Cola", new Product("Antiviral Cola", BigDecimal.valueOf(1.50), 5));
+        this.products.put("Monster Chips", new Product("Monster Chips", BigDecimal.valueOf(1.00),10));
+        this.products.put("Unusually Cold Candy", new Product("Unusually Cold Candy",BigDecimal.valueOf(.75),10));
+        this.products.put("Sense of Purpose", new Product("Sense of Purpose", BigDecimal.valueOf(100.00),15));
+
     }
 
     public VendingMachine(BigDecimal totalMoney) {
@@ -33,29 +47,6 @@ public class VendingMachine {
         this.coins.put("Quarter", 20);
         this.coins.put("Dime", 20);
         this.coins.put("Nickel", 20);
-        this.products.put("Chips", new Product("Chips", BigDecimal.valueOf(.50), 5));
-        this.products.put("Cola", new Product("Cola", BigDecimal.valueOf(1.00), 5));
-        this.products.put("Candy", new Product("Candy", BigDecimal.valueOf(.65), 5));
-    }
-
-    public BigDecimal getTotalMoney() {
-        return totalMoney;
-    }
-
-    public Collection<String> getCoinReturn() {
-        return coinReturn;
-    }
-
-    public String getMachineDisplay() {
-        if (machineDisplay == "THANK YOU") {
-            machineDisplay = "INSERT COIN";
-            return "THANK YOU";
-        }
-        return machineDisplay;
-    }
-
-    public Collection<Product> getProducts() {
-        return products.values();
     }
 
     public void acceptCoin(String insertedCoin) {
@@ -95,7 +86,6 @@ public class VendingMachine {
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
             machineDisplay = "THANK YOU";
-            System.out.println(totalMoney);
             dispenseCoins();
         }
     }
@@ -145,6 +135,22 @@ public class VendingMachine {
             }
         }
         return true;
+    }
+
+    public BigDecimal getTotalMoney() {
+        return totalMoney;
+    }
+
+    public Collection<String> getCoinReturn() {
+        return coinReturn;
+    }
+
+    public String getMachineDisplay() {
+        return machineDisplay;
+    }
+
+    public Collection<Product> getProducts() {
+        return products.values();
     }
 
     public void emptyCoinReturn() {
