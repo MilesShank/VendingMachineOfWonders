@@ -16,6 +16,7 @@ public class VendingMachine {
     private BigDecimal dime;
     private BigDecimal nickel;
     private Collection<String> coinReturn;
+    private Collection<Product> productDisplay = new ArrayList<>();
     private String machineDisplay;
     private HashMap<String, Product> products = new HashMap<>();
     private HashMap<String, Integer> coins = new HashMap<>();
@@ -85,6 +86,7 @@ public class VendingMachine {
         } else {
             ourSelectedProduct.dispenseProduct();
             totalMoney = totalMoney.subtract(ourSelectedProduct.getPrice());
+            productDisplay.add(ourSelectedProduct);
             machineDisplay = "THANK YOU";
             dispenseCoins();
         }
@@ -92,15 +94,15 @@ public class VendingMachine {
 
     public void dispenseCoins() {
         while (totalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
-            if (totalMoney.compareTo(quarter) >= 0) {
+            if (totalMoney.compareTo(quarter) >= 0 && coins.get("Quarter") > 0) {
                 totalMoney = totalMoney.subtract(quarter);
                 coins.replace("Quarter", (coins.get("Quarter") - 1));
                 coinReturn.add("Quarter");
-            } else if (totalMoney.compareTo(dime) >= 0) {
+            } else if (totalMoney.compareTo(dime) >= 0 && coins.get("Dime") > 0) {
                 totalMoney = totalMoney.subtract(dime);
                 coins.replace("Dime", (coins.get("Dime") - 1));
                 coinReturn.add("Dime");
-            } else if (totalMoney.compareTo(nickel) >= 0) {
+            } else if (totalMoney.compareTo(nickel) >= 0 && coins.get("Nickel") >0) {
                 totalMoney = totalMoney.subtract(nickel);
                 coins.replace("Nickel", (coins.get("Nickel") - 1));
                 coinReturn.add("Nickel");
@@ -120,17 +122,17 @@ public class VendingMachine {
         int dimes = coins.get("Dime");
         int nickels = coins.get("Nickel");
         while (checkTotalMoney.compareTo(BigDecimal.valueOf(0)) != 0) {
-            if (checkTotalMoney.compareTo(quarter) >= 0) {
+            if (checkTotalMoney.compareTo(quarter) >= 0 && quarters > 0) {
                 quarters--;
                 checkTotalMoney = checkTotalMoney.subtract(quarter);
-            } else if (checkTotalMoney.compareTo(dime) >= 0) {
+            } else if (checkTotalMoney.compareTo(dime) >= 0 && dimes > 0) {
                 dimes--;
                 checkTotalMoney = checkTotalMoney.subtract(dime);
             } else if (checkTotalMoney.compareTo(nickel) >= 0) {
                 nickels--;
                 checkTotalMoney = checkTotalMoney.subtract(nickel);
             }
-            if (quarters <= 0 || dimes <= 0 || nickels <= 0) {
+            if (quarters <= 0 && dimes <= 0 && nickels <= 0) {
                 return false;
             }
         }
@@ -153,7 +155,10 @@ public class VendingMachine {
         return products.values();
     }
 
+    public Collection<Product> getProductDisplay() { return productDisplay; }
+
     public void emptyCoinReturn() {
         coinReturn.clear();
+        productDisplay.clear();
     }
 }
