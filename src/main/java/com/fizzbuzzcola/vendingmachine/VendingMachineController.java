@@ -41,4 +41,6 @@ public class VendingMachineController {
     @GetMapping("/api/vend/products/{productName}")
     public Product viewMachineProduct(@PathVariable String productName){return vendingMachine.selectProduct(productName);}
 
+    @GetMapping("/api/vend/productsdisplay")
+    public Collection<Product>  viewProductsDisplay(){return vendingMachine.getProductDisplay();}
 }

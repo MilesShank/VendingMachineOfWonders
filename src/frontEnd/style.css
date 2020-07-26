@@ -1,0 +1,94 @@
+/* FF8AA7 the red/pink
+6A00DF the purple
+CED6F5 light blue
+716AFF periwinkle
+FFE59F yellow */
+:root {
+  --Red: #ff8aa7;
+  --Purple: #6a00df;
+  --LightBlue: #ced6f5;
+  --Periwinkle: #716aff;
+  --Yellow: #ffe59f;
+}
+* {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: var(--Purple);
+}
+body {
+  background-color: var(--LightBlue);
+  text-decoration: none;
+}
+
+main {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.vending-machine-section {
+  display: grid;
+  position: relative;
+  grid-template-rows: 2fr 1fr 2fr;
+  background-image: url(./images/asset11.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 2rem;
+  width: 100%;
+}
+.machine-display {
+  background-color: var(--Periwinkle);
+  padding: 10px;
+  color: var(--Yellow);
+  width: 10rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 150%;
+  position: absolute;
+  top: 50%;
+  left: 15%;
+}
+.wallet-section {
+  align-content: center;
+  max-width: 100%;
+}
+
+.quarter,
+.dime,
+.nickel {
+  max-width: 7rem;
+}
+.coins-section {
+  padding: none;
+  margin: none;
+  display: inline;
+  height: 8rem;
+}
+.return-coins-button,
+.empty-coin-return {
+  margin-left: 2em;
+  background-color: var(--Red);
+  color: var(--Yellow);
+  height: 7rem;
+  width: 10rem;
+  border: 0.5em var(--Purple) double;
+  font-size: 150%;
+  border-radius: 40px;
+}
+.products {
+  align-self: right;
+}
+.product-button {
+  border: 0.25em var(--Purple) double;
+  border-radius: 10px;
+  font-size: 2em;
+  background-color: var(--Red);
+  margin: 5px;
+}
+
+.coin-return-section {
+  display: flex;
+}
+.product-display-section {
+  margin-top: 3em;
+  padding: 1em;
+}

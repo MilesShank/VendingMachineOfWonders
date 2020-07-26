@@ -107,7 +107,7 @@ class VendingMachineApplicationTests {
         underTest.addProduct(testProduct);
         assertTrue(underTest.checkForExactChange("Antiviral Cola"));
         assertTrue(underTest.checkForExactChange("Chips2"));
-        VendingMachine testerTwo = new VendingMachine(BigDecimal.valueOf(10.10));
+        VendingMachine testerTwo = new VendingMachine(BigDecimal.valueOf(20.10));
         testerTwo.addProduct(testProduct);
         assertFalse(testerTwo.checkForExactChange("Antiviral Cola"));
     }
@@ -116,5 +116,10 @@ class VendingMachineApplicationTests {
     public void shouldBeAbleToEmptyCoinReturn() {
         underTest.dispenseProduct("Chips2");
         underTest.emptyCoinReturn();
+    }
+    @Test
+    public void productDisplayShouldContainProduct(){
+        underTest.dispenseProduct("Chips2");
+        assertThat(underTest.getProductDisplay().contains(testChips));
     }
 }

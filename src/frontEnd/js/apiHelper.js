@@ -6,6 +6,7 @@ export {
   returnCoins,
   getCoinReturn,
   emptyCoinReturn,
+  getProductDisplay,
 };
 
 const fetchMachineDisplay = async () => {
@@ -40,4 +41,10 @@ const getCoinReturn = async () => {
 
 const emptyCoinReturn = async () => {
   return fetch(`http://localhost:8080/api/vend/emptycoinreturn`);
+};
+
+const getProductDisplay = async () => {
+  return fetch(
+    `http://localhost:8080/api/vend/productsdisplay`
+  ).then((response) => response.json());
 };

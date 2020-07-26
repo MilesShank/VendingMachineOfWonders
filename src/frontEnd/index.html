@@ -3,19 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Vending Machine</title>
   </head>
   <body>
     <main>
-      <span class="machine-display"></span>
-      <button class="quarter">Quarter</button>
-      <button class="dime">Dime</button>
-      <button class="nickel">Nickel</button>
+      <section class="vending-machine-section">
+        <span></span>
+        <span class="machine-display"></span>
+        <span></span>
+      </section>
 
-      <ul class="products"></ul>
-      <button class="return-coins-button">Return Coins</button>
-      <p class="coins"></p>
-      <button class="empty-coin-return">Retrieve Coins</button>
+      <section class="wallet-section">
+        <element class="coins-section">
+          <input type="image" class="quarter" src="./images/Asset1.png" />
+          <input type="image" class="dime" src="./images/Asset2.png" />
+          <input type="image" class="nickel" src="./images/Asset3.png" />
+          <button class="return-coins-button">Return Coins</button>
+        </element>
+
+        <ul class="products"></ul>
+
+        <element class="coin-return-section">
+          <button class="empty-coin-return">Retrieve Coins</button>
+          <p class="coins"></p>
+        </element>
+        <element class="product-display-section"> </element>
+      </section>
     </main>
   </body>
   <script src="./js/vendingMachine.js" type="module"></script>
